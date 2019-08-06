@@ -1,0 +1,62 @@
+<div style="padding: 20px;">
+	<form action="{% url 'bt:unit-results' %}" method="post">
+		{% csrf_token %}
+		<fieldset style="padding: 20px 0px 20px 30px; width: 90%;">
+			<legend><strong>Fetch Poll Results for Any Unit</strong></legend>
+			<label>Select LGA</label>
+			<select name="lga" placeholder="select LGA">
+			{% for lga in lga_list %}
+				<option value="{{ lga.id }}">{{ lga|title }}</option>
+			{% endfor %}
+			</select>
+			<label>Select Ward</label>
+			<select name="ward" placeholder="select ward">
+				{% for ward in ward_list %}
+				<option value="{{ ward.uniqueid }}">{{ ward.ward_name|title }}</option>
+				{% endfor %}
+			</select>
+
+			<label>Select Polling Unit</label>
+			<select name="unit" value="select unit">
+				{% for unit in polling_units %}
+					<option value="{{ unit.uniqueid }}">{{ unit.polling_unit_name|title }}</option>
+				{% endfor %}
+			</select>
+			<input type="submit" name="submit" value="Fetch Results">
+		</fieldset>
+	</form>
+
+	{% if unit_results %}
+		<div class="row">
+			<table border="1">
+				<h3 style="color: #0044fc;">Showing Results for:  {{ unit.polling_unit_name }} </h3><hr>
+				<thead>
+					<tr>
+					<th style="padding: 10px 15px;">Polling Unit</th>
+					{% for item in unit_results %}
+						<th style="padding: 10px 15px;">{{ item.party_abbreviation|upper }} </th>
+					{% empty %}
+						<th style="padding: 20px;"> No party found</th>
+					{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="color: green; padding: 10px;">
+							{{ unit.polling_unit_name|title }}
+						</td>
+						{% for item in unit_results %}
+							<td style="padding: 5px; color: #6677ce;">
+								{{ item.party_score }}
+							</td>
+						{% empty %}
+							<td colspan="9"> No result found</td>
+						{% endfor %}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	{% else %}
+		<h4 style="color: red;">No data to display for {{ unit|title }}</h4>
+	{% endif %}
+</div>

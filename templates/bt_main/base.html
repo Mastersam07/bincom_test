@@ -1,0 +1,116 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>{% block title %}{% endblock title %} | Bincom Test</title>
+
+
+  <link rel="canonical" href="{{ request.build_absolute_uri|urlencode }}" />
+  <link rel="stylesheet" href="{% static 'bincom_test/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bincom_test/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'bincom_test/css/bincom.css' %}">
+  <!-- Responsive styles-->
+  <link rel="stylesheet" href="{% static 'bincom_test/css/responsive.css' %}">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="{% static 'bincom_test/css/font-awesome.min.css' %}">
+  <!-- Animation -->
+  <link rel="stylesheet" href="{% static 'bincom_test/css/animate.css' %}">
+  <!-- Owl Carousel -->
+  <link rel="stylesheet" href="{% static 'bincom_test/css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bincom_test/css/owl.theme.default.min.css' %}">
+  <!-- Colorbox -->
+  <link rel="stylesheet" href="{% static 'bincom_test/css/colorbox.css' %}">
+  </head>
+    
+{% with user=request.user %}
+  <body>
+    <section role="navigations">
+        <div class="row">
+          <div class="col-md-6">
+            <h5 style="margin-bottom: 4px;">Bincom Prelim Test</h5>
+            <table width="40%" border="0">
+              <tr>
+                <td style="width: auto; padding: 10px;">
+                  <strong>By:</strong>
+                </td>
+                <td style="float: right; padding: 10px;">
+                  Abada Samuel
+                </td>
+              </tr>
+
+              <tr>
+                <td style="width: auto; padding: 10px;">
+                  <strong>Programming language used:</strong>
+                </td>
+                <td style="float: right; padding: 10px;">
+                  Python
+                </td>
+              </tr>
+              <tr>
+                <td style="width: auto; padding: 10px;">
+                  <strong>Framework:</strong>
+                </td>
+                <td style="float: right; padding: 10px;">
+                  Django
+                </td>
+              </tr>
+              <tr>
+                <td style="width: auto; padding: 10px;">
+                  <strong>Position Applied for:</strong>
+                </td>
+                <td style="float: right; padding: 10px;">
+                  Full Stack Developer - MySQL , Python - August 2019 - ( Intermediate & Advanced Experience Levels)
+                </td>
+              </tr>
+            </table>
+          </div>
+          <hr>
+          <h4 style="color: green; margin-bottom: 0px;">Use the buttons below to select an action to perform</h4>
+          <div class="col-md-6">
+          <span class="btn btn-default"><button style="display: inline;padding: 7.5px; margin: 7.5px;"><a href="/" style="text-decoration: none;">Home</a></button ></span>
+              <span class="btn btn-default"><button style="display: inline;padding: 7.5px; margin: 7.5px;"><a href="{% url 'bt:unit-results' %}" style="text-decoration: none;">Polling Unit Results</a></button ></span>
+              <span class="btn btn-default"><button style="display: inline;padding: 7.5px; margin: 7.5px;"><a href="{% url 'bt:unit-summary' %}" style="text-decoration: none;">LGA Units Summary</a></button></span>
+              <span class="btn btn-default"><button style="display: inline;padding: 7.5px; margin: 7.5px;"><a href="{% url 'bt:add-new-result' %}" style="text-decoration: none;">Add New Unit Result</a></button></span>
+            <!-- </ul> -->
+          </div>
+        </div>
+      </section>
+    <p>&nbsp;</p>
+
+    {% block inner_content %}
+    {% if messages %}
+        {% for msg in messages %}
+          <strong style="color: green;">{{ msg }}</strong> 
+          </div>
+        {% endfor %}
+    {% endif %}
+    {% endblock inner_content %}
+
+    {% block modals %}
+    {% endblock modals %}
+
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <script src="{% static 'bincom_test/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bincom_test/js/jquery.js' %}"></script>
+    
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../static/bincom_test/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+{% endwith %}
+</html>
+

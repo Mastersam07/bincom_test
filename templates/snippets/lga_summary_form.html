@@ -1,0 +1,66 @@
+<div style="padding: 20px;">
+<form action="{% url 'bt:unit-summary' %}" method="post">
+	{% csrf_token %}
+	<fieldset style="padding: 20px 0px 20px 30px; width: 80%;">
+		<legend><strong>Fetch Summed totals of Polling units in LGA</strong></legend>
+		<label> Select State: </label>
+		<select name="state" placeholder="select state">
+			{% for state in states %}
+				<option value="{{ state.state_id }}">{{ state.state_name|title }}</option>
+			{% endfor %}
+		</select
+		<label> Select LGA: </label>
+		<select name="lga_id" placeholder="select LGA">
+			{% for lga in lga_list %}
+				<option value="{{ lga.uniqueid }}">{{ lga|title }}</option>
+			{% endfor %}
+		</select>
+		<input type="submit" name="submit" value="Fetch Results">
+	</fieldset>
+</form>
+
+{% if lga_score_dict %}
+	<div class="row">
+		<table border="1">
+			<h3 style="color: #0044fc;">Showing Results for: {{ lga_name|title }} Local Government Area</h3><hr>
+			<thead>
+				<tr>
+					<th>Polling Unit</th>
+					{% for party in parties %}
+						<th>{{ party.partyname }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for key, val in lga_score_dict.items %}
+					<tr>
+						<th style="color: green; padding: 10px;" >{{ key.polling_unit_name|title }}</th>
+						{% for party in val %}
+							<td style="padding: 5px; color: #444444;">{{ party.party_score }}</td>
+						{% empty %}
+							<td colspan="9">
+								No Results found!
+							</td>
+						{% endfor %}
+					</tr>
+				{% empty %}
+					<p>No party found </p>
+				{% endfor %}
+				<tr>
+					&nbsp;
+				</tr>
+				<tr>
+					<th>Total Scores</th>
+					{% for score in party_summary_list %}
+						<th style="color: #44cc66; padding: 5px;">{{ score }}</th>
+					{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+		<p> &nbsp;</p>
+		<p> &nbsp;</p>
+	</div>
+{% else %}
+	<h4 style="color: red;">No data to display for {{ lga_name|title }}</h4>
+{% endif %}
+</div>

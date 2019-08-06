@@ -1,0 +1,47 @@
+<div style="padding: 20px;">
+	<form action="{% url 'bt:add-new-result' %}" method="post">
+		{% csrf_token %}
+		<fieldset style="padding: 20px 0px 20px 30px; width: 70%;">
+		<legend><strong>Add New Unit score </strong></legend>
+			<label>Select State</label>
+			<select name="state" placeholder="select state">
+				{% for state in states %}
+					<option value="{{ state.state_id }}">{{ state.state_name|title }}</option>
+				{% endfor %}
+			</select>
+
+			<label>Select LGA</label>
+			<select name="lga" placeholder="select LGA">
+			{% for lga in lga_list %}
+				<option value="{{ lga.id }}">{{ lga|title }}</option>
+			{% endfor %}
+			</select>
+			<label>Select Ward</label>
+			<select name="ward" placeholder="select ward">
+				{% for ward in ward_list %}
+				<option value="{{ ward.uniqueid }}">{{ ward.ward_name|title }}</option>
+				{% endfor %}
+			</select>
+
+			<label>Select Polling Unit</label>
+			<select name="unit" value="select unit">
+				{% for unit in polling_units %}
+					<option value="{{ unit.uniqueid }}">{{ unit.polling_unit_name|title }}</option>
+				{% endfor %}
+			</select>
+			<br><br>
+			<div class="row">
+				{% for party in parties %}
+					<tr>
+						<td>{{ party.partyname }}</td>
+						<td align="right"><input type="text" placeholder="score" name="{{ party.partyid }}" required=""></td>
+					</tr><br><br>
+				{% endfor %}
+			</div>
+		<input type="submit" name="submit" value="save score">
+		</fieldset>
+	</form>
+</div>
+
+<p> &nbsp;</p>
+<p> &nbsp;</p>
